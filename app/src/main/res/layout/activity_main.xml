@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.w3engineers.core.aidlclient.MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_num1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Insert number 1"/>
+
+        <EditText
+            android:id="@+id/et_num2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:hint="Insert number 2"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add"/>
+
+            <Button
+                android:id="@+id/btn_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="List"/>
+
+            <Button
+                android:id="@+id/btn_object"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Object"/>
+
+            <Button
+                android:id="@+id/btn_call"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Call"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:textSize="18sp"/>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
