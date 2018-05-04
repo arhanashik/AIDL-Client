@@ -1,4 +1,4 @@
-package com.w3engineers.core.aidlclient;
+package com.w3engineers.core;
 /*
  *  ****************************************************************************
  *  * Created by : Md. Hasnain on 5/4/2018 at 10:21 AM.

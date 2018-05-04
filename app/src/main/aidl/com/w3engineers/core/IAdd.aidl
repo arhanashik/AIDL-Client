@@ -2,6 +2,7 @@
 package com.w3engineers.core;
 
 // Declare any non-default types here with import statements
+import com.w3engineers.core.Person;
 
 interface IAdd {
     /**
@@ -10,5 +11,7 @@ interface IAdd {
      */
     int addNumbers(int num1, int num2);
     List<String> getStringList();
+    Person getPerson();
+    List<Person> getPersonList();
     void placeCall(String number);
 }

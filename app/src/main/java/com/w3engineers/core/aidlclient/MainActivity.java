@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,13 +16,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.w3engineers.core.IAdd;
+import com.w3engineers.core.Person;
 import com.w3engineers.core.R;
 
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private EditText etNum1, etNum2;
-    private Button btnAdd, btnList, btnObject, btnCall;
+    private Button btnAdd, btnList, btnObject, btnObjectList, btnCall;
     private TextView txtResult;
 
     private String TAG = "AIDL CLIENT";
@@ -53,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd = findViewById(R.id.btn_add);
         btnList = findViewById(R.id.btn_list);
         btnObject = findViewById(R.id.btn_object);
+        btnObjectList = findViewById(R.id.btn_object_list);
         btnCall = findViewById(R.id.btn_call);
         txtResult = findViewById(R.id.txt_result);
 
@@ -61,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd.setOnClickListener(this);
         btnList.setOnClickListener(this);
         btnObject.setOnClickListener(this);
+        btnObjectList.setOnClickListener(this);
         btnCall.setOnClickListener(this);
     }
 
@@ -85,15 +89,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.btn_add:
                 if(addService != null){
-                    int num1 = Integer.valueOf(etNum1.getText().toString());
-                    int num2 = Integer.valueOf(etNum2.getText().toString());
+                    String num1 = etNum1.getText().toString();
+                    String num2 = etNum2.getText().toString();
 
-                    try {
-                        int res = addService.addNumbers(num1, num2);
+                    if(!TextUtils.isEmpty(num1) && !TextUtils.isEmpty(num2)){
+                        try {
+                            int res = addService.addNumbers(Integer.valueOf(num1),
+                                    Integer.valueOf(num2));
 
-                        txtResult.setText(num1 + " + " + num2 + " = " + res);
-                    } catch (RemoteException e) {
-                        e.printStackTrace();
+                            txtResult.setText(num1 + " + " + num2 + " = " + res);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
                 else txtResult.setText("Service not connected!");
@@ -111,6 +118,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             else {
                                 for(String s : strings)
                                     res += "\n" + s;
+                            }
+                        }
+
+                        txtResult.setText(res);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else txtResult.setText("Service not connected!");
+
+                break;
+
+            case R.id.btn_object:
+                if(addService != null){
+                    try {
+                        String res = "Object";
+                        Person p = addService.getPerson();
+                        if(p == null) res = "Object is not initiated";
+                        else {
+                            res += "\nObject: ID:" + p.getId() + ", Name:" + p.getName() + ", Age:" + p.getAge();
+                        }
+
+                        txtResult.setText(res);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else txtResult.setText("Service not connected!");
+
+                break;
+
+            case R.id.btn_object_list:
+                if(addService != null){
+                    try {
+                        String res = "Objects";
+                        List<Person> personList = addService.getPersonList();
+                        if(personList == null) res = "Objects are not initiated";
+                        else {
+                            if(personList.size() == 0) res = "Empty object";
+                            else {
+                                for(Person p : personList)
+                                    res += "\nObject: ID:" + p.getId() + ", Name:" + p.getName() + ", Age:" + p.getAge();
                             }
                         }
 
